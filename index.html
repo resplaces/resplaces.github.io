@@ -547,7 +547,16 @@ function setupArchive(archiveId, publications){
  for(const [selector,type,limit] of sources){const nodes=[...document.querySelectorAll(selector)];nodes.forEach(el=>add(el,type));
  const dated=nodes.filter(el=>/\b(19|20)\d{2}\b/.test((el.querySelector('.overline,.q-num,.year')||el).textContent));
  dated.sort((a,b)=>{const ea=entries.find(e=>e.title===clean(a.querySelector('h4,h3')?.textContent)),eb=entries.find(e=>e.title===clean(b.querySelector('h4,h3')?.textContent));return (eb?.date||'').localeCompare(ea?.date||'');});
- dated.forEach((el,i)=>{const link=el.querySelector('a[href]');const url=link?.getAttribute('href')||'';const showOnHome=el.dataset.homepage==='true';const archiveOnly=el.dataset.homepage==='false';el.classList.toggle('archive-source-hidden',archiveOnly||(!showOnHome&&i>=limit));});
+ // Put dated entries in actual DOM order, newest first. Keep older entries in the archive.
+ if(!publications){
+   const parent=nodes[0]?.parentElement;
+   if(parent){dated.forEach(el=>parent.append(el));nodes.filter(el=>!dated.includes(el)).forEach(el=>parent.append(el));}
+ }
+ dated.forEach((el,i)=>{
+   const showOnHome=publications&&el.dataset.homepage==='true';
+   const archiveOnly=publications&&el.dataset.homepage==='false';
+   el.classList.toggle('archive-source-hidden',archiveOnly||(!showOnHome&&i>=limit));
+ });
  const section=nodes[0]?.closest('section');if(section){const link=document.createElement('a');link.href='#'+archiveId;link.className='archive-link';link.textContent='Show more entries';link.addEventListener('click',()=>{get('archive-type').value=type;get('archive-search').value='';get('archive-topic').value='';get('archive-year').value='';visible=12;render();});section.querySelector('.container').append(link);}}
  /* Publications are curated in #outputs only. Researcher profiles are not indexed: add only scholarship relevant to RESPLACES to the project publication list. */
  entries.sort((a,b)=>b.date.localeCompare(a.date)||a.title.localeCompare(b.title));
