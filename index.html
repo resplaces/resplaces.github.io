@@ -205,11 +205,11 @@ main.profile-mode #profile-view{display:block!important}
 /* Compact previews of the original media images. */
 .media-item--illustrated{display:grid;grid-template-columns:132px minmax(0,1fr);gap:20px;align-items:start}.media-item-copy{min-width:0}.media-thumb{display:block;overflow:hidden;border-radius:3px;background:#e7eeeb;margin-top:3px;aspect-ratio:11/7}.media-thumb img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease}.media-thumb:hover img{transform:scale(1.04)}.media-thumb:focus-visible{outline:2px solid var(--teal);outline-offset:4px}.media-item--illustrated h4{margin-top:8px}@media(max-width:1100px) and (min-width:831px){.media-item--illustrated{grid-template-columns:105px minmax(0,1fr);gap:15px}}@media(max-width:540px){.media-item--illustrated{grid-template-columns:90px minmax(0,1fr);gap:13px}.media-item--illustrated h4{font-size:18px}.media-item--illustrated .overline{font-size:9px}}@media(prefers-reduced-motion:reduce){.media-thumb img{transition:none}}
 
-/* Enlarge each media story while the pointer or keyboard focus is over it. */
-.media-item--illustrated{position:relative;transform-origin:center;transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease}
-@media(hover:hover) and (pointer:fine){.media-item--illustrated:hover{transform:scale(1.035);z-index:2;background:#fff;box-shadow:0 10px 28px rgba(19,62,73,.13)}}
-.media-item--illustrated:focus-within{transform:scale(1.035);z-index:2;background:#fff;box-shadow:0 10px 28px rgba(19,62,73,.13)}
-@media(prefers-reduced-motion:reduce){.media-item--illustrated{transition:none}.media-item--illustrated:hover,.media-item--illustrated:focus-within{transform:none}}
+/* Enlarge each media story and News card while the pointer or keyboard focus is over it. */
+.media-item--illustrated,#news .question{position:relative;transform-origin:center;transition:transform .22s ease,box-shadow .22s ease,background-color .22s ease}
+@media(hover:hover) and (pointer:fine){.media-item--illustrated:hover,#news .question:hover{transform:scale(1.035);z-index:2;background:#fff;box-shadow:0 10px 28px rgba(19,62,73,.13)}}
+.media-item--illustrated:focus-within,#news .question:focus-within{transform:scale(1.035);z-index:2;background:#fff;box-shadow:0 10px 28px rgba(19,62,73,.13)}
+@media(prefers-reduced-motion:reduce){.media-item--illustrated,#news .question{transition:none}.media-item--illustrated:hover,#news .question:hover,.media-item--illustrated:focus-within,#news .question:focus-within{transform:none}}
 
 .outputs-art{position:relative;min-height:220px;overflow:hidden;display:flex;align-items:center;justify-content:center;pointer-events:none;background:radial-gradient(ellipse at center,rgba(109,154,141,.10),transparent 68%)}
 .outputs-art svg{width:92%;max-width:490px;height:230px;opacity:.25;filter:blur(.65px)}
